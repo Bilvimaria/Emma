@@ -6,85 +6,142 @@
 //  Copyright © 2019 Bilvi Maria Joseph. All rights reserved.
 //
 
+
 import UIKit
+import Contacts
+import ContactsUI
+import CoreData
 
-class EditContactsViewController: UITableViewController {
-
+class EditContactsViewController: UITableViewController, CNContactPickerDelegate {
+    var managedObjectContext: NSManagedObjectContext!
+    var contactList : [NSManagedObject] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        fetchEmergencyContactList()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return contactList.count
     }
-
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let item = contactList[indexPath.row]
+        cell.textLabel?.text = item.value(forKey: "name") as? String
+        cell.detailTextLabel?.text = item.value(forKey: "phoneNumber") as? String
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
+    //Mark: -swipe to delete row new
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let manageContext = appDelegate.persistentContainer.viewContext
+            manageContext.delete(self.contactList[indexPath.row])
+            do{
+                try manageContext.save()
+                manageContext.refreshAllObjects()
+                self.contactList.removeAll()
+                self.fetchEmergencyContactList()
+                tableView.reloadData()
+            }catch{
+                print("Could not save after deleting row ")
+            }
+            
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    func fetchEmergencyContactList(){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let manageContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Contact")
+        
+        do {
+            contactList = try manageContext.fetch(fetchRequest)
+        } catch let err as NSError{
+            print("Failed to Fetch \(err)")
+        }
     }
-    */
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    @IBAction func addContact(_ sender: Any) {
+        let entityType = CNEntityType.contacts
+        let authStatus = CNContactStore.authorizationStatus(for: entityType)
+        
+        if authStatus == CNAuthorizationStatus.notDetermined{
+            let contactStore = CNContactStore.init()
+            contactStore.requestAccess(for: entityType) { (success, nil) in
+                if success{
+                    self.openContacts()
+                }
+                else{
+                    print("Not Authorized")
+                }
+            }
+        }
+        else if authStatus == CNAuthorizationStatus.authorized{
+            openContacts()
+        }
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func openContacts(){
+        let contactPicker = CNContactPickerViewController.init()
+        contactPicker.delegate = self
+        self.present(contactPicker, animated: true, completion: nil)
     }
-    */
-
+    
+    func contactPickerDidCancel(_ picker: CNContactPickerViewController) {
+        //ToDo:- dismiss had one more argument. Have to check that
+        picker.dismiss(animated: true) {
+            
+        }
+    }
+    // MARK: - Selecting Single Contact
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+        let fullName = "\(contact.givenName) \(contact.familyName)"
+        var phone = "Not Available"
+        if !contact.phoneNumbers.isEmpty{
+            let phoneString = (((contact.phoneNumbers[0] as AnyObject).value(forKey: "labelValuePair") as AnyObject).value(forKey: "value") as AnyObject).value(forKey: "stringValue")
+            //ToDO: -Optional so do accordingly
+            phone = phoneString as! String
+        }
+        let currentContactName = fullName
+        
+        let currentContactPhone = phone
+        
+        let newRowIndex = contactList.count
+        self.save(currentContactName,currentContactPhone)
+        //self.contactList1.append(currentContactItem)
+        let indexPath = IndexPath(row: newRowIndex, section: 0)
+        let indexPaths = [indexPath]
+        tableView.insertRows(at: indexPaths, with: .automatic)
+        
+    }
+    
+    func save(_ contactName: String, _ contactPhone: String){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "Contact", in: managedContext)!
+        let singleContact = NSManagedObject(entity: entity, insertInto: managedContext)
+        singleContact.setValue(contactName, forKey: "name")
+        singleContact.setValue(contactPhone, forKey: "phoneNumber")
+        
+        do{
+            try
+                managedContext.save()
+            print("Saved")
+            print(applicationDocumentsDirectory)
+                contactList.append(singleContact)
+        }catch let err as NSError{
+            print("Failed to save \(err)")
+        }
+    }
+    
+    @IBAction func done() {    
+          navigationController?.popViewController(animated: true)
+    }
 }

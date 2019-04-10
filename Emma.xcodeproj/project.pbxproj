@@ -7,11 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4F3590A52231D3BC00AEE0CA /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3590A42231D3BC00AEE0CA /* RoundButton.swift */; };
-		4FEF61AE22286C3200064BBE /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEF61AD22286C3200064BBE /* UserInfoViewController.swift */; };
+		4F1480AF22431DAE009E9E0E /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F1480AD22431DAE009E9E0E /* DataModel.xcdatamodeld */; };
+		4F1480B222431E33009E9E0E /* Contact+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1480B022431E33009E9E0E /* Contact+CoreDataClass.swift */; };
+		4F1480B322431E33009E9E0E /* Contact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1480B122431E33009E9E0E /* Contact+CoreDataProperties.swift */; };
+		4F51B7FE224462BE00483EDD /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F51B7FD224462BE00483EDD /* Functions.swift */; };
+		4F66E885223B8A5E001CEAEA /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66E884223B8A5E001CEAEA /* SettingsController.swift */; };
+		4FB2AB56223AF7A9002C9E19 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB2AB55223AF7A9002C9E19 /* Contacts.framework */; };
+		4FB2AB58223AF7B2002C9E19 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB2AB57223AF7B2002C9E19 /* ContactsUI.framework */; };
+		4FEF32682246BD8100D01BA5 /* Alarm+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEF32662246BD8100D01BA5 /* Alarm+CoreDataClass.swift */; };
+		4FEF32692246BD8100D01BA5 /* Alarm+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEF32672246BD8100D01BA5 /* Alarm+CoreDataProperties.swift */; };
 		4FEF61B02228735700064BBE /* EditContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEF61AF2228735700064BBE /* EditContactsViewController.swift */; };
-		4FEF61B422287B2000064BBE /* TestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEF61B322287B2000064BBE /* TestingViewController.swift */; };
-		4FEF61B62228885A00064BBE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEF61B52228885A00064BBE /* SettingsViewController.swift */; };
+		4FF77ED122462893002EFD19 /* Siren.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4FF77ED022462893002EFD19 /* Siren.mp3 */; };
 		4FF7F8E422275FB3006BE2F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF7F8E322275FB3006BE2F8 /* AppDelegate.swift */; };
 		4FF7F8E622275FB3006BE2F8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF7F8E522275FB3006BE2F8 /* ViewController.swift */; };
 		4FF7F8E922275FB3006BE2F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FF7F8E722275FB3006BE2F8 /* Main.storyboard */; };
@@ -22,11 +28,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4F3590A42231D3BC00AEE0CA /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
-		4FEF61AD22286C3200064BBE /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
+		4F1480AE22431DAE009E9E0E /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		4F1480B022431E33009E9E0E /* Contact+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Contact+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4F1480B122431E33009E9E0E /* Contact+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Contact+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4F51B7FD224462BE00483EDD /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		4F66E884223B8A5E001CEAEA /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		4FB2AB55223AF7A9002C9E19 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
+		4FB2AB57223AF7B2002C9E19 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
+		4FEF32662246BD8100D01BA5 /* Alarm+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alarm+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4FEF32672246BD8100D01BA5 /* Alarm+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alarm+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4FEF61AF2228735700064BBE /* EditContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContactsViewController.swift; sourceTree = "<group>"; };
-		4FEF61B322287B2000064BBE /* TestingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingViewController.swift; sourceTree = "<group>"; };
-		4FEF61B52228885A00064BBE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		4FF77ED022462893002EFD19 /* Siren.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Siren.mp3; sourceTree = "<group>"; };
 		4FF7F8E022275FB3006BE2F8 /* Emma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Emma.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FF7F8E322275FB3006BE2F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FF7F8E522275FB3006BE2F8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -43,17 +55,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FB2AB58223AF7B2002C9E19 /* ContactsUI.framework in Frameworks */,
+				4FB2AB56223AF7A9002C9E19 /* Contacts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4FB2AB54223AF7A9002C9E19 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4FB2AB57223AF7B2002C9E19 /* ContactsUI.framework */,
+				4FB2AB55223AF7A9002C9E19 /* Contacts.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4FF77ECF2246285E002EFD19 /* music */ = {
+			isa = PBXGroup;
+			children = (
+				4FF77ED022462893002EFD19 /* Siren.mp3 */,
+			);
+			path = music;
+			sourceTree = "<group>";
+		};
 		4FF7F8D722275FB3006BE2F8 = {
 			isa = PBXGroup;
 			children = (
+				4FEF32662246BD8100D01BA5 /* Alarm+CoreDataClass.swift */,
+				4FEF32672246BD8100D01BA5 /* Alarm+CoreDataProperties.swift */,
+				4F1480B022431E33009E9E0E /* Contact+CoreDataClass.swift */,
+				4F1480B122431E33009E9E0E /* Contact+CoreDataProperties.swift */,
 				4FF7F8E222275FB3006BE2F8 /* Emma */,
 				4FF7F8E122275FB3006BE2F8 /* Products */,
+				4FB2AB54223AF7A9002C9E19 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,19 +104,19 @@
 		4FF7F8E222275FB3006BE2F8 /* Emma */ = {
 			isa = PBXGroup;
 			children = (
+				4FF77ECF2246285E002EFD19 /* music */,
 				4FF7F8F922277161006BE2F8 /* Emma.html */,
 				4FF7F8E322275FB3006BE2F8 /* AppDelegate.swift */,
 				4FF7F8E522275FB3006BE2F8 /* ViewController.swift */,
 				4FF7F8E722275FB3006BE2F8 /* Main.storyboard */,
-				4F3590A42231D3BC00AEE0CA /* RoundButton.swift */,
 				4FF7F8F52227635C006BE2F8 /* GuidelineViewController.swift */,
 				4FF7F8EA22275FB8006BE2F8 /* Assets.xcassets */,
 				4FF7F8EC22275FB8006BE2F8 /* LaunchScreen.storyboard */,
 				4FF7F8EF22275FB8006BE2F8 /* Info.plist */,
-				4FEF61AD22286C3200064BBE /* UserInfoViewController.swift */,
 				4FEF61AF2228735700064BBE /* EditContactsViewController.swift */,
-				4FEF61B322287B2000064BBE /* TestingViewController.swift */,
-				4FEF61B52228885A00064BBE /* SettingsViewController.swift */,
+				4F66E884223B8A5E001CEAEA /* SettingsController.swift */,
+				4F1480AD22431DAE009E9E0E /* DataModel.xcdatamodeld */,
+				4F51B7FD224462BE00483EDD /* Functions.swift */,
 			);
 			path = Emma;
 			sourceTree = "<group>";
@@ -117,6 +153,12 @@
 				TargetAttributes = {
 					4FF7F8DF22275FB3006BE2F8 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -143,6 +185,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FF77ED122462893002EFD19 /* Siren.mp3 in Resources */,
 				4FF7F8FA22277161006BE2F8 /* Emma.html in Resources */,
 				4FF7F8EE22275FB8006BE2F8 /* LaunchScreen.storyboard in Resources */,
 				4FF7F8EB22275FB8006BE2F8 /* Assets.xcassets in Resources */,
@@ -157,14 +200,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F3590A52231D3BC00AEE0CA /* RoundButton.swift in Sources */,
-				4FEF61B422287B2000064BBE /* TestingViewController.swift in Sources */,
+				4F1480B322431E33009E9E0E /* Contact+CoreDataProperties.swift in Sources */,
+				4FEF32682246BD8100D01BA5 /* Alarm+CoreDataClass.swift in Sources */,
+				4F1480AF22431DAE009E9E0E /* DataModel.xcdatamodeld in Sources */,
 				4FF7F8E622275FB3006BE2F8 /* ViewController.swift in Sources */,
-				4FEF61B62228885A00064BBE /* SettingsViewController.swift in Sources */,
 				4FF7F8E422275FB3006BE2F8 /* AppDelegate.swift in Sources */,
-				4FEF61AE22286C3200064BBE /* UserInfoViewController.swift in Sources */,
+				4F66E885223B8A5E001CEAEA /* SettingsController.swift in Sources */,
+				4F1480B222431E33009E9E0E /* Contact+CoreDataClass.swift in Sources */,
 				4FF7F8F62227635C006BE2F8 /* GuidelineViewController.swift in Sources */,
+				4FEF32692246BD8100D01BA5 /* Alarm+CoreDataProperties.swift in Sources */,
 				4FEF61B02228735700064BBE /* EditContactsViewController.swift in Sources */,
+				4F51B7FE224462BE00483EDD /* Functions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,7 +365,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = practise.Emma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -337,7 +383,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = practise.Emma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -364,6 +410,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4F1480AD22431DAE009E9E0E /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4F1480AE22431DAE009E9E0E /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 4F1480AE22431DAE009E9E0E /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4FF7F8D822275FB3006BE2F8 /* Project object */;
 }
