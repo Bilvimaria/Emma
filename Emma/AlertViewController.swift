@@ -337,7 +337,8 @@ class AlertViewController: UIViewController, CLLocationManagerDelegate, MFMessag
     //Mark: - Alarm
     func setAudioPlayer(){
         do{
-            audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "Siren", ofType: "mp3")!))
+//            audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "Siren", ofType: "mp3")!))
+            audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "danger_alarm", ofType: "mp3")!))
             audioPlayer.prepareToPlay()
             audioPlayer.numberOfLoops = -1
             audioPlayer.setVolume(1.0, fadeDuration: 0.1)
