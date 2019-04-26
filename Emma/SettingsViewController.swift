@@ -9,7 +9,7 @@
 
 import UIKit
 import CoreData
-class SettingsController: UITableViewController {
+class SettingsViewController: UITableViewController {
     
     var alarmStatus = "Alarm On"
     

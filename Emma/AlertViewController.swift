@@ -11,7 +11,7 @@ import MessageUI
 import CoreData
 import AVFoundation
 
-class ViewController: UIViewController, CLLocationManagerDelegate, MFMessageComposeViewControllerDelegate {
+class AlertViewController: UIViewController, CLLocationManagerDelegate, MFMessageComposeViewControllerDelegate {
 
     //Mark:- AlertButton
     @IBOutlet weak var alertButton: UIButton!
@@ -39,6 +39,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MFMessageComp
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.view.backgroundColor = UIColor(red:0.78, green:0.91, blue:0.89, alpha:1.0)
         fetchEmergencyContacts()
         setAlarm()
         setAudioPlayer()
@@ -50,6 +51,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MFMessageComp
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor(red:0.78, green:0.91, blue:0.89, alpha:1.0)
         fetchEmergencyContacts()
         setAlarm()
         setAudioPlayer()
@@ -84,7 +86,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MFMessageComp
             changeText()
         }
     }
-    //Mark:- Emergency Contacts
+    
+    //Mark: - Emergency Contacts
     func fetchEmergencyContacts(){
         let appDelegateforContact = UIApplication.shared.delegate as! AppDelegate
         let manageContextforContact = appDelegateforContact.persistentContainer.viewContext
@@ -99,19 +102,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MFMessageComp
     }
     
     func alert(){
+        getLocation()
+        toggleIsButtonClicked()
+        resetAlarm()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.SMS()
+        }
+        sendSMS()
+    }
+    
+    // MARK: - Location
+    func getLocation(){
         //Authorization
         let authStatus = CLLocationManager.authorizationStatus()
         if authStatus == .notDetermined {
             locationManager.requestWhenInUseAuthorization()
             return
         }
-        
         if authStatus == .denied || authStatus == .restricted {
             showLocationServicesDeniedAlert()
             return
         }
-        
-        //startLocationManager()
         if updatingLocation {
             stopLocationManager()
         } else {
@@ -121,19 +132,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MFMessageComp
             lastGeocodingError = nil
             startLocationManager()
         }
-        
-        toggleIsButtonClicked()
-        resetAlarm()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.SMS()
-        }
-        sendSMS()
     }
     
-    // MARK:- CLLocationManagerDelegate
+    // MARK: - CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager,
                          didFailWithError error: Error) {
-        print("didFailWithError \(error.localizedDescription)")
         if (error as NSError).code ==
             CLError.locationUnknown.rawValue {
             return
@@ -144,8 +147,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MFMessageComp
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last!
-        print("didUpdateLocations \(newLocation)")
-        
         if newLocation.timestamp.timeIntervalSinceNow < -5 {
             return
         }
@@ -163,14 +164,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MFMessageComp
             lastLocationError = nil
             location = newLocation
             if newLocation.horizontalAccuracy <= locationManager.desiredAccuracy {
-                print("*** We're done!")
                 stopLocationManager()
                 if distance > 0 {
                     performingReverseGeocoding = false
                 }
             }
             if !performingReverseGeocoding {
-                print("*** Going to geocode")
                 performingReverseGeocoding = true
                 geocoder.reverseGeocodeLocation(newLocation, completionHandler: { placemarks, error in
                     self.lastGeocodingError = error
@@ -284,20 +283,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MFMessageComp
     
     func SMS() {
         if isButtonClicked{
-            if MFMessageComposeViewController.canSendText(){
-                
-                let controller = MFMessageComposeViewController()
-                controller.body = "I am at risk at \(self.addressString)"
-                controller.recipients = []
-                for contact in contactList{
-                    controller.recipients?.append(contact.value(forKey: "phoneNumber") as! String)
-                }
-                controller.messageComposeDelegate = self
-                self.present(controller,animated:true,completion:nil)
+            if contactList.isEmpty{
+                showAlertPopUp()
             }else{
-                print("***can't send message***")
+                if MFMessageComposeViewController.canSendText(){
+                    
+                    let controller = MFMessageComposeViewController()
+                    controller.body = "I am at risk at \(self.addressString)"
+                    controller.recipients = []
+                    for contact in contactList{
+                        controller.recipients?.append(contact.value(forKey: "phoneNumber") as! String)
+                    }
+                    controller.messageComposeDelegate = self
+                    self.present(controller,animated:true,completion:nil)
+                }else{
+                    print("***can't send message***")
+                }
+                sendSMS()
             }
-            sendSMS()
         }
     }
     // Dismisses the message composer when message sending is finished
@@ -423,5 +426,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MFMessageComp
         if let url = URL(string: "tel:7053135306") {
             UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
         }
+    }
+    func showAlertPopUp() {
+        let title = "Warning"
+        let message = "You haven't selected emergency contacts. Add emergency contacts list before you tap the button"
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "OK", style: .default,
+                                   handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
 }

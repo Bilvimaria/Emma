@@ -12,7 +12,7 @@ import Contacts
 import ContactsUI
 import CoreData
 
-class EditContactsViewController: UITableViewController, CNContactPickerDelegate {
+class EmergencyContactsViewController: UITableViewController, CNContactPickerDelegate {
     var managedObjectContext: NSManagedObjectContext!
     var contactList : [NSManagedObject] = []
     
@@ -33,7 +33,8 @@ class EditContactsViewController: UITableViewController, CNContactPickerDelegate
         cell.detailTextLabel?.text = item.value(forKey: "phoneNumber") as? String
         return cell
     }
-    //Mark: -swipe to delete row new
+    
+    //Mark: - swipe to delete row
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
